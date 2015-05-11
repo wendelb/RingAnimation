@@ -2,6 +2,7 @@ package bernhard.ringanimation.animation;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 
 public class Dot {
 
@@ -19,7 +20,7 @@ public class Dot {
 	// Movement
 	public static final float stepSize = 1.5f;
 	public static final int stepCount = 50;
-	
+
 	// Color
 	public static final float colorStepSize = 0.01f;
 
@@ -31,8 +32,8 @@ public class Dot {
 		this.directionTowardsCenter = false;
 
 		// ColorStep zunächst am StepPadding festmachen
-		colorStep = (stepPadding * colorStepSize)/10;
-		
+		colorStep = (stepPadding * colorStepSize) / 10;
+
 		// Sägezahlfunktion, die sich alle 2 * stepCount wiederholt (auf, ab,
 		// auf, ab)
 		stepPadding = stepPadding % (stepCount * 2);
@@ -54,28 +55,39 @@ public class Dot {
 	}
 
 	public void render(Graphics2D g) {
-		renderDot(g);
 		renderSchweif(g);
+		renderDot(g);
 	}
 
 	private void renderDot(Graphics2D g) {
 		g.setColor(this.color);
 		g.fillOval((int) (x - (dotRadius / 2)), (int) (y - (dotRadius / 2)), dotRadius, dotRadius);
 	}
-	
+
 	private void renderSchweif(Graphics2D g) {
-		
+		g.setColor(this.color.darker().darker().darker().darker());
+
+		Polygon p = new Polygon();
+
+		// Der Punkt, der am weitesten weg ist
+		p.addPoint((int) (centerX - Math.cos(Math.toRadians(winkel)) * (centerDistance + stepCount * stepSize)), (int) (centerY - Math.sin(Math.toRadians(winkel)) * (centerDistance + stepCount * stepSize)));
+
+		// Und 2 Punkte die am Dot hängen
+		p.addPoint((int) this.x, (int) (this.y - dotRadius / 2));
+		p.addPoint((int) this.x, (int) (this.y + dotRadius / 2));
+
+		g.fillPolygon(p);
 	}
-	
+
 	private void updateColor() {
 		colorStep = colorStep + colorStepSize;
 		if (colorStep > 1) {
 			colorStep = colorStep - 1;
 		}
-		
+
 		this.color = new Color(Color.HSBtoRGB(colorStep, 1.0f, 1.0f));
 	}
-	
+
 	public void update() {
 		// Aktuellen Schritt berechnen
 		if (this.directionTowardsCenter) {
@@ -95,7 +107,7 @@ public class Dot {
 
 		// Aus aktuellem Schritt die neue Position berechnen
 		calcNewPosition();
-		
+
 		// Zum Schluss noch eine neue Farbe berechnen
 		updateColor();
 	}
