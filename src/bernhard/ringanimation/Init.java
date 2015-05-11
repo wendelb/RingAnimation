@@ -1,17 +1,18 @@
 package bernhard.ringanimation;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
+import bernhard.ringanimation.animation.Dot;
+
 
 public class Init extends GameFrame {
 
 	private static final long serialVersionUID = -6445501664185646223L;
-	BufferedImage r, l;
+	BufferedImage backgroundImage;
+	
+	Dot[] dots = new Dot[200];
 	
 	public static void main(String[] args) {
 		Init mf = new Init();
@@ -25,20 +26,17 @@ public class Init extends GameFrame {
 
 	@Override
 	protected BufferedImage render() {
-		r =  new BufferedImage(width, height, 1);
+		BufferedImage r =  new BufferedImage(width, height, 1);
 		Graphics2D g = r.createGraphics();
-		g.drawImage(l, 0, 0, null);
+		g.drawImage(backgroundImage, 0, 0, null);
 		
-		/*
-		for (Particle p : ps) {
-			if (p == null) {
-				continue;
-			} else if (p.dead) {
-				continue;
-			}
-			p.render(g);
+		// Show the Center
+		g.setColor(Color.RED);
+		g.fillOval(256-2, 256-2,4,4);
+		
+		for (Dot d : dots) {
+			d.render(g);
 		}
-		*/
 		
 		//BufferedImage blured = Blur.boxBlur(r, 5);
 		
@@ -50,6 +48,10 @@ public class Init extends GameFrame {
 
 	@Override
 	protected void update() {
+		for (Dot d : dots) {
+			d.update();
+		}
+		
 /*		for (int i = 0; i < ps.length; i++) {
 			double rand = Math.random();
 			if (ps[i] == null) {
@@ -73,10 +75,13 @@ public class Init extends GameFrame {
 	@Override
 	protected void init() {
 
-		l = new BufferedImage(width, height, 1);
+		backgroundImage = new BufferedImage(width, height, 1);
 		
-		Graphics2D g = l.createGraphics();
+		Graphics2D g = backgroundImage.createGraphics();
 		
+		for (int i = 0; i < dots.length; i++) {
+			dots[i] = new Dot(width/2, height/2, 360.0f/dots.length * i, i*2);
+		}
 
 		g.setColor(Color.black);
 		g.fillRect(0, 0, width, height);
