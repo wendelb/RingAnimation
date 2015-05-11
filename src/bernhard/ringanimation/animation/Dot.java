@@ -73,8 +73,8 @@ public class Dot {
 		p.addPoint((int) (centerX - Math.cos(Math.toRadians(winkel)) * (centerDistance + stepCount * stepSize)), (int) (centerY - Math.sin(Math.toRadians(winkel)) * (centerDistance + stepCount * stepSize)));
 
 		// Und 2 Punkte die am Dot hängen
-		p.addPoint((int) this.x, (int) (this.y - dotRadius / 2));
-		p.addPoint((int) this.x, (int) (this.y + dotRadius / 2));
+		p.addPoint((int) (this.x + Math.sin(Math.toRadians(winkel)) * dotRadius / 2), (int) (this.y - Math.cos(Math.toRadians(winkel)) * dotRadius / 2));
+		p.addPoint((int) (this.x - Math.sin(Math.toRadians(winkel)) * dotRadius / 2), (int) (this.y + Math.cos(Math.toRadians(winkel)) * dotRadius / 2));
 
 		g.fillPolygon(p);
 	}
