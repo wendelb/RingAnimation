@@ -27,13 +27,13 @@ public class Dot {
 
 		// Sägezahlfunktion, die sich alle 2 * stepCount wiederholt (auf, ab,
 		// auf, ab)
-		int stepPadding2 = stepPadding % (stepCount * 2);
+		stepPadding = stepPadding % (stepCount * 2);
 
-		if (stepPadding2 < stepCount) {
-			this.step = stepPadding2;
+		if (stepPadding < stepCount) {
+			this.step = stepPadding;
 		}
 		else {
-			this.step = stepPadding2 - stepCount;
+			this.step = stepCount - (stepPadding - stepCount);
 		}
 
 		this.color = Color.LIGHT_GRAY;
