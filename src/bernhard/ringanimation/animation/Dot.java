@@ -46,10 +46,19 @@ public class Dot {
 	}
 
 	public void render(Graphics2D g) {
+		renderDot(g);
+		renderSchweif(g);
+	}
+
+	private void renderDot(Graphics2D g) {
 		g.setColor(this.color);
 		g.fillOval((int) (x - (dotRadius / 2)), (int) (y - (dotRadius / 2)), dotRadius, dotRadius);
 	}
-
+	
+	private void renderSchweif(Graphics2D g) {
+		
+	}
+	
 	public void update() {
 		// Aktuellen Schritt berechnen
 		if (this.directionTowardsCenter) {
