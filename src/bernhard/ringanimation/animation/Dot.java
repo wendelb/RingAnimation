@@ -8,6 +8,7 @@ public class Dot {
 	private float x, y, winkel;
 	private int centerX, centerY;
 	private int step;
+	private float colorStep;
 	private Color color;
 	private boolean directionTowardsCenter;
 
@@ -15,8 +16,12 @@ public class Dot {
 
 	public static final int dotRadius = 10;
 
+	// Movement
 	public static final float stepSize = 1.5f;
 	public static final int stepCount = 50;
+	
+	// Color
+	public static final float colorStepSize = 0.01f;
 
 	public Dot(int centerX, int centerY, float winkel, int stepPadding) {
 		this.centerX = centerX;
@@ -25,6 +30,9 @@ public class Dot {
 
 		this.directionTowardsCenter = false;
 
+		// ColorStep zunächst am StepPadding festmachen
+		colorStep = (stepPadding * colorStepSize)/10;
+		
 		// Sägezahlfunktion, die sich alle 2 * stepCount wiederholt (auf, ab,
 		// auf, ab)
 		stepPadding = stepPadding % (stepCount * 2);
@@ -36,7 +44,7 @@ public class Dot {
 			this.step = stepCount - (stepPadding - stepCount);
 		}
 
-		this.color = Color.LIGHT_GRAY;
+		updateColor();
 		calcNewPosition();
 	}
 
@@ -59,6 +67,15 @@ public class Dot {
 		
 	}
 	
+	private void updateColor() {
+		colorStep = colorStep + colorStepSize;
+		if (colorStep > 1) {
+			colorStep = colorStep - 1;
+		}
+		
+		this.color = new Color(Color.HSBtoRGB(colorStep, 1.0f, 1.0f));
+	}
+	
 	public void update() {
 		// Aktuellen Schritt berechnen
 		if (this.directionTowardsCenter) {
@@ -78,6 +95,9 @@ public class Dot {
 
 		// Aus aktuellem Schritt die neue Position berechnen
 		calcNewPosition();
+		
+		// Zum Schluss noch eine neue Farbe berechnen
+		updateColor();
 	}
 
 }
