@@ -70,7 +70,12 @@ public class Dot {
 		Polygon p = new Polygon();
 
 		// Der Punkt, der am weitesten weg ist
-		p.addPoint((int) (centerX - Math.cos(Math.toRadians(winkel)) * (centerDistance + stepCount * stepSize)), (int) (centerY - Math.sin(Math.toRadians(winkel)) * (centerDistance + stepCount * stepSize)));
+		if (directionTowardsCenter) {
+			p.addPoint((int) (centerX - Math.cos(Math.toRadians(winkel)) * centerDistance), (int) (centerY - Math.sin(Math.toRadians(winkel)) * centerDistance));
+		}
+		else {
+			p.addPoint((int) (centerX - Math.cos(Math.toRadians(winkel)) * (centerDistance + stepCount * stepSize)), (int) (centerY - Math.sin(Math.toRadians(winkel)) * (centerDistance + stepCount * stepSize)));
+		}
 
 		// Und 2 Punkte die am Dot hängen
 		p.addPoint((int) (this.x + Math.sin(Math.toRadians(winkel)) * dotRadius / 2), (int) (this.y - Math.cos(Math.toRadians(winkel)) * dotRadius / 2));
