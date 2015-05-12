@@ -50,8 +50,9 @@ public class Dot {
 	}
 
 	private void calcNewPosition() {
-		this.x = (float) (centerX - Math.cos(Math.toRadians(winkel)) * (centerDistance + step * stepSize));
-		this.y = (float) (centerY - Math.sin(Math.toRadians(winkel)) * (centerDistance + step * stepSize));
+		double factor = (centerDistance + step * stepSize);
+		this.x = (float) (centerX - Math.cos(Math.toRadians(winkel)) * factor);
+		this.y = (float) (centerY - Math.sin(Math.toRadians(winkel)) * factor);
 	}
 
 	public void render(Graphics2D g) {
