@@ -16,5 +16,9 @@ public class Easing {
 	public static double easeInOutExpo(double p) {
 		return p < 0.5 ? easeExpo(p * 2) / 2 : 1 - easeExpo(p * -2 + 2) / 2;
 	}
+	
+	public static double easeInLinear(double p) {
+		return p;
+	}
 
 }
