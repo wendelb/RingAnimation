@@ -29,10 +29,6 @@ public class Init extends GameFrame {
 		Graphics2D g = r.createGraphics();
 		g.drawImage(backgroundImage, 0, 0, null);
 
-		// Show the Center
-		g.setColor(Color.RED);
-		g.fillOval(256 - 2, 256 - 2, 4, 4);
-
 		for (Dot d : dots) {
 			d.render(g);
 		}
