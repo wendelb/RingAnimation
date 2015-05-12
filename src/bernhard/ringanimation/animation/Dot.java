@@ -91,8 +91,9 @@ public class Dot {
 			p.addPoint((int) (centerX - Math.cos(Math.toRadians(winkel)) * factor), (int) (centerY - Math.sin(Math.toRadians(winkel)) * factor));
 		}
 		else {
-			// Der Punkt, der am weitesten weg ist
-			p.addPoint((int) (centerX - Math.cos(Math.toRadians(winkel)) * (centerDistance + stepCount * stepSize)), (int) (centerY - Math.sin(Math.toRadians(winkel)) * (centerDistance + stepCount * stepSize)));
+			// Ausgehend vom Punkt, der am weitesten weg ist, nach innen
+			double factor = (centerDistance + stepCount * stepSize) - Easing.easeInOutExpo((stepCount - this.step) / (double) stepCount) * stepCount * stepSize;
+			p.addPoint((int) (centerX - Math.cos(Math.toRadians(winkel)) * factor), (int) (centerY - Math.sin(Math.toRadians(winkel)) * factor));
 		}
 
 		// Und 2 Punkte die am Dot hängen
