@@ -49,8 +49,28 @@ public class Dot {
 		calcNewPosition();
 	}
 
+	private double easingFunction(double p) {
+		// easeOutExpo
+		return 1 - Math.pow(1 - p, 4 + 2);
+	}
+
 	private void calcNewPosition() {
-		double factor = (centerDistance + step * stepSize);
+
+		double p = step / (double) stepCount;
+		double factor;
+
+		if (!this.directionTowardsCenter) {
+			// Nach auﬂen
+			p = 1 - p;
+			factor = (centerDistance + stepSize * stepCount - easingFunction(p) * stepSize * stepCount);
+		}
+		else {
+			// Nach innen
+			// Achtung: Hier gibt es einen anderen Ansatzpunkt
+			factor = (centerDistance + easingFunction(p) * stepSize * stepCount);
+			
+		}
+
 		this.x = (float) (centerX - Math.cos(Math.toRadians(winkel)) * factor);
 		this.y = (float) (centerY - Math.sin(Math.toRadians(winkel)) * factor);
 	}
