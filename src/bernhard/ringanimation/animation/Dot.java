@@ -32,7 +32,7 @@ public class Dot {
 		this.directionTowardsCenter = false;
 
 		// ColorStep zunächst am StepPadding festmachen
-		colorStep = (stepPadding * colorStepSize) / 10;
+		colorStep = winkel / 360 * 3;
 
 		// Sägezahlfunktion, die sich alle 2 * stepCount wiederholt (auf, ab,
 		// auf, ab)
