@@ -86,8 +86,9 @@ public class Dot {
 		Polygon p = new Polygon();
 
 		if (directionTowardsCenter) {
-			// Der Punkt der am nächsten dran ist
-			p.addPoint((int) (centerX - Math.cos(Math.toRadians(winkel)) * centerDistance), (int) (centerY - Math.sin(Math.toRadians(winkel)) * centerDistance));
+			// Ausgehend vom Punkt der am nächsten dran ist hin zum anderen Ende
+			double factor = centerDistance + Easing.easeInOutExpo(this.step / (double) stepCount) * stepCount * stepSize;
+			p.addPoint((int) (centerX - Math.cos(Math.toRadians(winkel)) * factor), (int) (centerY - Math.sin(Math.toRadians(winkel)) * factor));
 		}
 		else {
 			// Der Punkt, der am weitesten weg ist
