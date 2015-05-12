@@ -54,7 +54,7 @@ public class Init extends GameFrame {
 		Graphics2D g = backgroundImage.createGraphics();
 
 		for (int i = 0; i < dots.length; i++) {
-			dots[i] = new Dot(width / 2, height / 2, 360.0f / dots.length * i, (int) (i * 7.5));
+			dots[i] = new Dot(width / 2, height / 2, 360.0f / dots.length * i, (int) (i * 9));
 		}
 
 		g.setColor(Color.black);
