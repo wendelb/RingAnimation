@@ -11,7 +11,7 @@ public class Init extends GameFrame {
 	private static final long serialVersionUID = -6445501664185646223L;
 	BufferedImage backgroundImage;
 
-	Dot[] dots = new Dot[32];
+	Dot[] dots = new Dot[50];
 
 	public static void main(String[] args) {
 		Init mf = new Init();
@@ -58,7 +58,7 @@ public class Init extends GameFrame {
 		Graphics2D g = backgroundImage.createGraphics();
 
 		for (int i = 0; i < dots.length; i++) {
-			dots[i] = new Dot(width / 2, height / 2, 360.0f / dots.length * i, i * 30);
+			dots[i] = new Dot(width / 2, height / 2, 360.0f / dots.length * i, (int) (i * 7.5));
 		}
 
 		g.setColor(Color.black);
